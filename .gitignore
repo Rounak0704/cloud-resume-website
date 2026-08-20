@@ -1,0 +1,17 @@
+# Operating system
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+
+# Logs
+*.log
+
+# Temporary verification files
+_verify.js
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
