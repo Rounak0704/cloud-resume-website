@@ -1,0 +1,25 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/cloud-resume-website
+            git pull origin main
+            sudo docker stop cloud-resume-container || true
+            sudo docker rm cloud-resume-container || true
+            sudo docker build -t cloud-resume-website .
+            sudo docker run -d --name cloud-resume-container -p 80:80 cloud-resume-website
