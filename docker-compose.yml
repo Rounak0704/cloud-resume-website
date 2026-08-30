@@ -1,0 +1,7 @@
+services:
+  portfolio:
+    build: .
+    container_name: cloud-resume-container
+    ports:
+      - "8080:80"
+    restart: unless-stopped
